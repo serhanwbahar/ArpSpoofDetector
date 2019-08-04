@@ -22,7 +22,7 @@ sleep 1
 echo "Router's IP		: $routers_ip"
 
 #Find Router's First MAC Address
-first_mac_ap=$(arp -a -i $interface_name | grep "_gateway" | awk '$2~/'"$routers_ip"'/ {print ($4)}')
+first_mac_ap=$(arp -a -i $interface_name | grep -e "gateway" -e "router" | awk '$2~/'"$routers_ip"'/ {print ($4)}')
 
 sleep 1
 
@@ -37,7 +37,7 @@ do
 	
 #Checking Router's MAC Address Again
 
-    second_mac_ap=$(arp -a -i $interface_name | grep "_gateway" | awk '$2~/'"$routers_ip"'/ {print ($4)}')
+    second_mac_ap=$(arp -a -i $interface_name | grep -e "gateway" -e "router" | awk '$2~/'"$routers_ip"'/ {print ($4)}')
 
 	    if [ "$second_mac_ap" != "$first_mac_ap" ];
             then
